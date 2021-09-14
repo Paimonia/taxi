@@ -19,7 +19,13 @@ import {
 	getSuccessMessageIsShown,
 	fetchCardRequest
 } from "../../modules/card";
-
+const useHelperTextStyles = makeStyles((theme) => ({
+    root: {
+		bottom: "-1.65em",
+		fontSize: "0.8rem",
+        color: "#ff0000"
+    }
+}));
 export const useFormStyles = makeStyles(() => ({
 	buttonContainer: {
 		display: "flex",
@@ -49,7 +55,7 @@ const ProfileForm = React.memo(props => {
 		successMessageIsShown
 	} = props;
 	const classes = useFormStyles();
-
+	const helperTextStyles = useHelperTextStyles();
 	const { handleSubmit, register, setValue, errors } = useForm();
 
 	useEffect(() => {
@@ -99,6 +105,11 @@ const ProfileForm = React.memo(props => {
 						helperText={
 							errors.cardNumber && "Номер карты должен сожержать 16 символов"
 						}
+						FormHelperTextProps={{
+							classes:{
+								root:helperTextStyles.root
+							}
+						}}
 						rules={{
 							minLength: 16,
 							maxLength: 16
@@ -140,6 +151,11 @@ const ProfileForm = React.memo(props => {
 						helperText={
 							errors.cardName && "Имя должно содержать только латинские символы"
 						}
+						FormHelperTextProps={{
+							classes:{
+								root:helperTextStyles.root
+							}
+						}}
 						rules={{
 							pattern: /^[A-Za-z\s]+$/i
 						}}
@@ -157,7 +173,12 @@ const ProfileForm = React.memo(props => {
 						inputProps={{
 							type: "number"
 						}}
-						helperText={errors.cvc && "cvc должен сожержать 3 символа"}
+						helperText={errors.cvc && "CVC должен сожержать 3 символа"}
+						FormHelperTextProps={{
+							classes:{
+								root:helperTextStyles.root
+							}
+						}}
 						rules={{
 							minLength: 3,
 							maxLength: 3

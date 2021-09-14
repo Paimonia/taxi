@@ -17,6 +17,13 @@ import {
 import { fetchAddressRequest, getAddressList } from "../../modules/address";
 import { fetchRouteRequest } from "../../modules/route";
 
+const useHelperTextStyles = makeStyles((theme) => ({
+    root: {
+		bottom: "-1.65em",
+		fontSize: "0.8rem",
+        color: "#ff0000"
+    }
+}));
 const useFormStyles = makeStyles(() => ({
 	formControl: {
 		minWidth: "100%"
@@ -38,6 +45,7 @@ const OrderForm = React.memo(props => {
 	} = useForm();
 	const { fetchAddressRequest, addressList, fetchRouteRequest } = props;
 	const classes = useFormStyles();
+	const helperTextStyles = useHelperTextStyles();
 
 	useEffect(() => {
 		fetchAddressRequest();
@@ -73,8 +81,9 @@ const OrderForm = React.memo(props => {
 				>
 					{availableAddresses}
 				</Select>
-				<FormHelperText>
-					{errors[addressKey] && "This field is required"}
+				<FormHelperText 
+					className={helperTextStyles.root}>
+					{errors[addressKey] && "Это обязательное поле"}
 				</FormHelperText>
 			</>
 		);
